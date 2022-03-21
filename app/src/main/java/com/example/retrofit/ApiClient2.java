@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient2 {
 
-    private static final String BASE_URL = "https://pulsedive.com/api/";
+    private static final String BASE_URL = "https://www.virustotal.com/api/v3/";
 
     private static Retrofit retrofit = null;
 
@@ -14,6 +14,7 @@ public class ApiClient2 {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+
                     .build();
         }
         return retrofit;
