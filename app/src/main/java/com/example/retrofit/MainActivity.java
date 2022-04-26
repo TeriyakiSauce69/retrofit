@@ -24,7 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     JsonPlaceHolderApi jsonPlaceHolderApi;
 
+    PwnedInterface pwnedInterface;
+
     TextView fTextView;
+
+
 
     Integer the_qid;
 
@@ -41,10 +45,11 @@ public class MainActivity extends AppCompatActivity {
         fTextView = findViewById(R.id.tv1);
 //        Call<Post> call = jsonPlaceHolderApi.getPost();
 
+        pwnedInterface = HaveIBeenPwnedClient.getClient().create((PwnedInterface.class));
         //getTodoUsingRouteParameter();
         //(new Handler()).postDelayed(this::getUser, 15000);
-        getUser();
-
+        //getUser();
+        getPwned();
     }
 
 //    public void getTodos(View view) {
@@ -187,6 +192,46 @@ public void getUser(){
         }
     });
 }
+    public void getPwned(){
+        //Execute the Network request
+        String da_qid = "guccifuji73%40gmail.com";
+        Call<List<Pwned>> call = pwnedInterface.getPwned(da_qid,false);
+        //Execute the request in a background thread
+        call.enqueue(new Callback<List<Pwned>>() {
+            @Override
+            public void onResponse(Call<List<Pwned>> call, Response<List<Pwned>> response) {
+
+
+//
+                String userContent = "";
+//                if(response.code() ==404){
+//                    userContent += "This account probably don't exist.";
+//                }
+//                for (int i = 0; i < response.body().size(); i++) {
+//                    userContent += "Title: " +response.body().get(i).getName() + "\n";
+//                }
+//
+
+                userContent += "Title " + response.body().get(0).getName()+ "\n";
+                userContent += "Title " + response.body().get(0).getTitle()+ "\n";
+                userContent += "Title " + response.body().get(0).getDomain()+ "\n";
+                userContent += "Title " + response.body().get(0).getBreachDate()+ "\n";
+                userContent += "Title " + response.body().get(0).getDescription()+ "\n";
+
+
+
+                fTextView.setText(userContent);
+
+                Log.e(TAG, "onResponse: " + response.body() );
+            }
+            @Override
+            public void onFailure(Call<List<Pwned>> call, Throwable t) {
+                Log.e(TAG, "onResponse: " + "It just gets here." );
+                fTextView.setText("Failure: " + t);
+
+            }
+        });
+    }
 
 
 }

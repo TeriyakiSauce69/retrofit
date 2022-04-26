@@ -22,7 +22,7 @@ public interface JsonPlaceHolderApi {
 //    );
 
     @Headers({"Accept: application/json",
-            "x-apikey: a3824b2a3fe8cf3511178d15fd648cc8fe86c01b14c7ab1cce6ff8578639a3c7"})
+            "x-apikey: ur key here"})
     @GET("ip_addresses/{ip}")
     Call<IpInfo> getIPInfo(@Path(value = "ip", encoded = true)String Ip);
 }
